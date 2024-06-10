@@ -1,10 +1,15 @@
 import React from "react";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useContext } from "react";
+import AuthContext from "../context/AuthProvider";
+import axios from "../api/axios";
+
+const LOGIN_URL = "/api/login";
 
 const Login = () => {
   const userRef = useRef();
   const errorRef = useRef();
 
+  const { setAuth } = useContext(AuthContext);
   const [user, setUser] = useState(" ");
   const [password, setPassword] = useState(" ");
   const [error, setError] = useState(" ");
@@ -18,10 +23,24 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // for testing purposes I am setting success to true
-    setUser(" ");
-    setPassword(" ");
-    setSuccess(true);
+    try {
+      const response = await axios.post(
+        LOGIN_URL,
+        JSON.stringify({ user, password }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
+      setUser(" ");
+      setPassword(" ");
+      setSuccess(true);
+      const accessToken = response?.data.accessToken();
+      const isAdmin = response?.data.isAdmin;
+      setAuth({ user, password, isAdmin, accessToken });
+    } catch (error) {
+      setError("error: " + error);
+    }
   };
 
   return (
