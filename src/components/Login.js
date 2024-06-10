@@ -25,13 +25,21 @@ const Login = () => {
   };
 
   return (
-    <>
-      {success ? (
+    <div style={{ backgroundColor: "#001f3f", width: "100%" }}>
+      {!success ? (
         <section>
           <p>Login successful</p>
         </section>
       ) : (
-        <section>
+        <section
+          style={{
+            backgroundColor: "#add8e6",
+            padding: "20px",
+            borderRadius: "10px",
+            width: "50%",
+            margin: "20px auto",
+          }}
+        >
           <p
             ref={errorRef}
             className={error ? "error: " : "offscreen"}
@@ -41,7 +49,12 @@ const Login = () => {
           </p>
           <h1>Login</h1>
           <form onSubmit={handleSubmit}>
-            <label htmlFor="username">username</label>
+            <label
+              htmlFor="username"
+              style={{ display: "block", marginBottom: "5px" }}
+            >
+              username
+            </label>
             <input
               type="text"
               id="username"
@@ -53,7 +66,12 @@ const Login = () => {
             ></input>
           </form>
           <form>
-            <label htmlFor="password">Password</label>
+            <label
+              htmlFor="password"
+              style={{ display: "block", marginBottom: "5px" }}
+            >
+              Password
+            </label>
             <input
               type="password"
               id="password"
@@ -70,7 +88,7 @@ const Login = () => {
           </form>
         </section>
       )}
-    </>
+    </div>
   );
 };
 
