@@ -1,4 +1,5 @@
-import Login from "./components/Login";
+import Login from "./pages/Login";
+import Topbar from "./components/Topbar";
 import { ColorModeContext, useMode } from "./theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 
@@ -10,6 +11,7 @@ function App() {
         <CssBaseline />
         <div className="app">
           <main className="content">
+            <Topbar />
             <Login />
           </main>
         </div>
