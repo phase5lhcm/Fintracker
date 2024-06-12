@@ -66,6 +66,31 @@ const Sidebar = () => {
         },
       }}
     >
+      <ProSidebar collapsed={isCollapsed}>
+        <Menu iconShape="square">
+          <MenuItem
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            icon={isCollapsed ? <MenuIcon /> : undefined}
+            style={{ margin: "10px 0 20px 0", color: colors.grey[100] }}
+          >
+            {!isCollapsed && (
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+                ml="15px"
+              >
+                <Typography variant="h3" color={colors.grey[100]}>
+                  FINTRACK
+                </Typography>
+                <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
+                  <MenuIcon />
+                </IconButton>
+              </Box>
+            )}
+          </MenuItem>
+        </Menu>
+      </ProSidebar>
       <MenuItem>menu items will be built here</MenuItem>
 
       {!isCollapsed && (
