@@ -4,7 +4,7 @@ import { tokens } from "../theme";
 
 const Header = ({ title, subTitle }) => {
   const theme = useTheme();
-  const colors = useTokens(theme.colors.mode);
+  const colors = tokens(theme.colors.mode);
   return (
     <Box>
       <Typography
