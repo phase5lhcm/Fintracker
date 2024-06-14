@@ -5,27 +5,28 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import Dashboard from "./pages/dashboard";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MySidebar from "./components/Sidebar";
+import Register from "./pages/Register";
 
 function App() {
   const [theme, colorMode] = useMode();
   return (
-    <BrowserRouter>
-      <ColorModeContext.Provider value={colorMode}>
-        <ThemeProvider theme={theme}>
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
           <CssBaseline />
           <div className="app">
+            <MySidebar />
             <main className="content">
               <Topbar />
-              {/* <Login /> */}
-              <MySidebar />
-              {/* <Routes>
-              <Route path="/" element={<DashBoard />} />
-            </Routes> */}
+              <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/register" element={<Register />} />
+              </Routes>
             </main>
           </div>
-        </ThemeProvider>
-      </ColorModeContext.Provider>
-    </BrowserRouter>
+        </BrowserRouter>
+      </ThemeProvider>
+    </ColorModeContext.Provider>
   );
 }
 

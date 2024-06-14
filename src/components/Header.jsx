@@ -1,21 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Typography, Box, useTheme } from "@mui/material";
 import { tokens } from "../theme";
+import { ColorModeContext } from "../theme";
 
 const Header = ({ title, subTitle }) => {
   const theme = useTheme();
-  const colors = tokens(theme.colors.mode);
+  const colors = useContext(ColorModeContext);
   return (
     <Box>
-      <Typography
-        variant="h2"
-        color={colors.grey[100]}
-        fontWeight="bold"
-        sx={{ mb: "5px" }}
-      >
+      <Typography variant="h1" component="div">
         {title}
       </Typography>
-      <Typography variant="h5" color={colors.green[400]}>
+      <Typography variant="h2" component="div">
         {subTitle}
       </Typography>
     </Box>
