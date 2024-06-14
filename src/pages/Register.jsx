@@ -4,7 +4,26 @@ import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../components/Header";
 
+const LOGIN_URL = "/api/register";
+
 const Register = () => {
+  const userRef = useRef();
+  const errorRef = useRef();
+
+  // focuses on user input
+  useEffect(() => {});
+
+  // remove error messages as user changes inputs in password field
+  useEffect(() => {});
+
+  const { setAuth } = useContext(AuthContext);
+  const [firstName, setFirstName] = useState(" ");
+  const [lastName, setlastName] = useState(" ");
+  const [email, setEmail] = useState(" ");
+  const [address, setAddress] = useState(" ");
+  const [password, setPassword] = useState(" ");
+  const [error, setError] = useState(" ");
+  const [success, setSuccess] = useState(" ");
   const initialValues = {
     firstName: "",
     lastName: "",
@@ -26,8 +45,28 @@ const Register = () => {
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
-  const handleFormSubmit = (values) => {
-    console.log(values);
+  const handleFormSubmit = async ({ firstName, lastName, email, address }) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        LOGIN_URL,
+        JSON.stringify({ firstName, lastName, email, address }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
+      setFirstName(" ");
+      setlastName(" ");
+      setEmail(" ");
+      setAddress(" ");
+      setSuccess(true);
+      const accessToken = response?.data.accessToken();
+      const isAdmin = response?.data.isAdmin;
+      setAuth({ user, password, isAdmin, accessToken });
+    } catch (error) {
+      setError("error: " + error);
+    }
   };
 
   return (
