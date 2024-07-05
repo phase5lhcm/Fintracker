@@ -33,14 +33,16 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 const MySidebar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const [selected, setSelected] = useState("Dashboard");
 
   return (
     <Box
       sx={{
         ".ps-sidebar-container": {
-          background: `${colors.primary[400]} !important`,
+          background: isCollapsed
+            ? "transparent !important"
+            : `${colors.primary[400]} !important`,
         },
         ".ps-menuitem-root": {
           padding: "5px 35px 5px 20px !important",
@@ -57,7 +59,7 @@ const MySidebar = () => {
         <Menu iconShape="square">
           <MenuItem
             onClick={() => setIsCollapsed(!isCollapsed)}
-            icon={isCollapsed ? <MenuIcon /> : <MenuIcon />}
+            icon={<MenuIcon />}
             style={{ margin: "10px 0 20px 0", color: colors.grey[100] }}
           >
             {!isCollapsed && (
@@ -76,18 +78,11 @@ const MySidebar = () => {
 
           {!isCollapsed && (
             <Box mb="25px">
-              <Box display="flex" justifyContent="center" alignItems="center">
-                <Box>
-                  image goes here
-                  {/* <img
-                    src="#"
-                    alt="profile-user"
-                    width="100px"
-                    height="100px"
-                    style={{ cursor: "pointer", borderRadius: "50%" }}
-                  /> */}
-                </Box>
-              </Box>
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+              ></Box>
               <Box textAlign="center">
                 <Typography
                   variant="h2"
@@ -112,7 +107,7 @@ const MySidebar = () => {
                 />
                 <Item
                   title="Account"
-                  to="/account"
+                  to="/user-profile"
                   icon={<AccountBoxIcon />}
                   selected={selected}
                   setSelected={setSelected}
