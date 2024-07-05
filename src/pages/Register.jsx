@@ -1,8 +1,11 @@
+import { useRef, useState, useEffect, useContext } from "react";
 import { Box, Button, TextField } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../components/Header";
+import axios from "axios";
+import AuthContext from "../context/AuthProvider";
 
 const LOGIN_URL = "/api/register";
 
@@ -45,7 +48,10 @@ const Register = () => {
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
-  const handleFormSubmit = async ({ firstName, lastName, email, address }) => {
+  const handleFormSubmit = async (
+    { firstName, lastName, email, address },
+    e
+  ) => {
     e.preventDefault();
     try {
       const response = await axios.post(
@@ -63,7 +69,7 @@ const Register = () => {
       setSuccess(true);
       const accessToken = response?.data.accessToken();
       const isAdmin = response?.data.isAdmin;
-      setAuth({ user, password, isAdmin, accessToken });
+      setAuth({ firstName, password, isAdmin, accessToken });
     } catch (error) {
       setError("error: " + error);
     }
