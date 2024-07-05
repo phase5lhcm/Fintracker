@@ -7,6 +7,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import PersonIcon from "@mui/icons-material/Person";
 import SearchIcon from "@mui/icons-material/Search";
+import Item from "./Item";
 
 const Topbar = () => {
   const theme = useTheme();
@@ -35,7 +36,7 @@ const Topbar = () => {
         <IconButton>
           <SettingsApplicationsIcon />
         </IconButton>
-        <IconButton>
+        <IconButton href="/register">
           <PersonIcon />
         </IconButton>
       </Box>

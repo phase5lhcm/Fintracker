@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
-import { Link } from "react-router-dom";
+import Item from "./Item";
 import HomeIcon from "@mui/icons-material/Home";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
@@ -13,22 +13,6 @@ import HelpCenterIcon from "@mui/icons-material/HelpCenter";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import MenuIcon from "@mui/icons-material/Menu";
 import { tokens } from "../theme";
-
-const Item = ({ title, to, icon, selected, setSelected }) => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
-  return (
-    <MenuItem
-      active={selected === title}
-      style={{ color: colors.grey[100] }}
-      onClick={() => setSelected(title)}
-      icon={icon}
-      component={<Link to={to} />}
-    >
-      <Typography>{title}</Typography>
-    </MenuItem>
-  );
-};
 
 const MySidebar = () => {
   const theme = useTheme();

@@ -77,7 +77,7 @@ const Register = () => {
 
   return (
     <Box m="20px">
-      <Header title="CREATE USER" subTitle="Register today!" />
+      <Header title="Register" />
       <Formik
         onSubmit={handleFormSubmit}
         initialValues={initialValues}
