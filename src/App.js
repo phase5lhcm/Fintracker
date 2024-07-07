@@ -6,7 +6,8 @@ import Dashboard from "./pages/dashboard";
 import UserProfile from "./pages/profile";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MySidebar from "./components/Sidebar";
-import Register from "./pages/Register";
+import Register from "./components/Register";
+import LandingPage from "./pages/landingpage";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -23,6 +24,7 @@ function App() {
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/user-profile" element={<UserProfile />} />
+                <Route path="/landing-page" element={<LandingPage />} />
               </Routes>
             </main>
           </div>
