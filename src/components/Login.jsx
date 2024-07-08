@@ -1,5 +1,4 @@
-import React from "react";
-import { useRef, useState, useEffect, useContext } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 import axios from "../api/axios";
 
@@ -10,16 +9,20 @@ const Login = () => {
   const errorRef = useRef();
 
   const { setAuth } = useContext(AuthContext);
-  const [user, setUser] = useState(" ");
-  const [password, setPassword] = useState(" ");
-  const [error, setError] = useState(" ");
-  const [success, setSuccess] = useState(" ");
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
 
-  // focuses on user input
-  useEffect(() => {});
+  // Focus on user input when component mounts
+  useEffect(() => {
+    userRef.current.focus();
+  }, []);
 
-  // remove error messages as user changes inputs in password field
-  useEffect(() => {});
+  // Clear error message when user or password changes
+  useEffect(() => {
+    setError("");
+  }, [user, password]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,20 +35,20 @@ const Login = () => {
           withCredentials: true,
         }
       );
-      setUser(" ");
-      setPassword(" ");
+      setUser("");
+      setPassword("");
       setSuccess(true);
-      const accessToken = response?.data.accessToken();
+      const accessToken = response?.data.accessToken;
       const isAdmin = response?.data.isAdmin;
       setAuth({ user, password, isAdmin, accessToken });
     } catch (error) {
-      setError("error: " + error);
+      setError("error: " + error.response?.data?.message || error.message);
     }
   };
 
   return (
     <div style={{ backgroundColor: "#001f3f", width: "100%" }}>
-      {!success ? (
+      {success ? (
         <section>
           <p>Login successful</p>
         </section>
@@ -61,7 +64,7 @@ const Login = () => {
         >
           <p
             ref={errorRef}
-            className={error ? "error: " : "offscreen"}
+            className={error ? "error" : "offscreen"}
             aria-live="assertive"
           >
             {error}
@@ -72,7 +75,7 @@ const Login = () => {
               htmlFor="username"
               style={{ display: "block", marginBottom: "5px" }}
             >
-              username
+              Username
             </label>
             <input
               type="text"
@@ -82,9 +85,7 @@ const Login = () => {
               onChange={(e) => setUser(e.target.value)}
               value={user}
               required
-            ></input>
-          </form>
-          <form>
+            />
             <label
               htmlFor="password"
               style={{ display: "block", marginBottom: "5px" }}
@@ -97,14 +98,14 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               required
-            ></input>
-            <button>Sign in</button>
-            <p>Need an account?</p>
-            <br />
-            <span className="line">
-              <a href="#">Sign up</a>
-            </span>
+            />
+            <button type="submit">Sign in</button>
           </form>
+          <p>Need an account?</p>
+          <br />
+          <span className="line">
+            <a href="#">Sign up</a>
+          </span>
         </section>
       )}
     </div>

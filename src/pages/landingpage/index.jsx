@@ -1,6 +1,5 @@
 import React from "react";
 import { Grid, Container } from "@mui/material";
-import Box from "@mui/material/Box";
 import Register from "../../components/Register";
 
 const LandingPage = () => {
