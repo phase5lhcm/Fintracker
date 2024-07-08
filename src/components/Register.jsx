@@ -8,7 +8,8 @@ import axios from "../api/axios";
 import AuthContext from "../context/AuthProvider";
 import Link from "@mui/material/Link";
 
-const LOGIN_URL = "/api/register";
+const REGISTER_URL = "/api/register";
+const LOGIN_URL = "/api/login";
 
 const Register = () => {
   const { setAuth } = useContext(AuthContext);
@@ -24,7 +25,14 @@ const Register = () => {
     redirect: false,
     success: false,
   });
+  const [userLoginDetails, setUserLoginDetails] = useState({
+    username: "",
+    password: "",
+    error: false,
+    success: false,
+  });
   const [loginInstructions, setLoginInstructions] = useState(false);
+  const [disableTextField, setDisableTextField] = useState(false);
   // const [firstName, setFirstName] = useState(" ");
   // const [username, setUsername] = useState(" ");
   // const [lastName, setlastName] = useState(" ");
@@ -54,12 +62,12 @@ const Register = () => {
 
   // NOTE - Formik handles the form's default reloading so no need to prevent default behavior per event triggered
   // i.e e.preventDefault() is unnecessary
-  const handleFormSubmit = async (values, { setSubmitting }) => {
+  const handleRegisterFormSubmit = async (values, { setSubmitting }) => {
     const { username, firstName, lastName, email, password } = values;
     try {
       const response = await axios.post(
-        LOGIN_URL,
-        JSON.stringify({ username, email, password }),
+        REGISTER_URL,
+        JSON.stringify({ firstName, lastName, username, email, password }),
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -77,8 +85,32 @@ const Register = () => {
     }
   };
 
+  //login details
+  const handleLoginFormSubmit = async (values, { setSubmitting }) => {
+    const { username, password } = values;
+    try {
+      const response = await axios.post(
+        LOGIN_URL,
+        JSON.stringify({ username, password }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
+      const accessToken = response?.data.accessToken();
+      const isAdmin = response?.data.isAdmin;
+      setUserDetails({ ...userLoginDetails, error: false });
+      setAuth({ username, password, isAdmin, accessToken });
+    } catch (error) {
+      console.log("error: " + error);
+      setUserDetails({ ...userLoginDetails, error, success: false });
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   const isLoginClicked = () => {
-    setLoginInstructions(true);
+    setLoginInstructions(!loginInstructions);
   };
 
   const errorMessage = () => (
@@ -99,7 +131,11 @@ const Register = () => {
   );
 
   const userLoginInstructions = () => {
-    return <div>Enter firstname and lastname OR email address to sign in</div>;
+    return <div>Enter email address to sign in</div>;
+  };
+
+  const disableBtn = () => {
+    setDisableTextField(!disableTextField);
   };
 
   return (
@@ -131,6 +167,7 @@ const Register = () => {
               }}
             >
               <TextField
+                disabled={disableTextField}
                 fullWidth
                 variant="filled"
                 type="text"
@@ -144,6 +181,7 @@ const Register = () => {
                 sx={{ gridColumn: "span 2" }}
               />
               <TextField
+                disabled={disableTextField}
                 fullWidth
                 variant="filled"
                 type="text"
@@ -157,6 +195,7 @@ const Register = () => {
                 sx={{ gridColumn: "span 2" }}
               />
               <TextField
+                disabled={disableTextField}
                 fullWidth
                 variant="filled"
                 type="text"
@@ -218,7 +257,7 @@ const Register = () => {
                 sx={{ backgroundColor: "#4a90e2" }}
                 disabled={isSubmitting}
               >
-                Login
+                {disableTextField ? "Enable" : "Disable"} Fields
               </Button>
             </Box>
             <Box
