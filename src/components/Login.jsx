@@ -14,7 +14,7 @@ const Login = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
-  // Focus on user input when component mounts
+  // Focus on user input when component is rendered
   useEffect(() => {
     userRef.current.focus();
   }, []);

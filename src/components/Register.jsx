@@ -60,7 +60,7 @@ const Register = () => {
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
-  // NOTE - Formik handles the form's default reloading so no need to prevent default behavior per event triggered
+  // Formik handles the form's default reloading so no need to prevent default behavior per event triggered
   // i.e e.preventDefault() is unnecessary
   const handleRegisterFormSubmit = async (values, { setSubmitting }) => {
     const { username, firstName, lastName, email, password } = values;
@@ -86,7 +86,7 @@ const Register = () => {
   };
 
   //login details
-  const handleLoginFormSubmit = async (values, { setSubmitting }) => {
+  const handleFormSubmit = async (values, { setSubmitting }) => {
     const { username, password } = values;
     try {
       const response = await axios.post(

@@ -23,6 +23,7 @@
     "formik": "^2.4.6",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-dotenv": "^0.1.3",
     "react-pro-sidebar": "^1.1.0",
     "react-router-dom": "^6.23.1",
     "react-scripts": "5.0.1",
@@ -55,5 +56,10 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+  },
+  "react-dotenv": {
+    "whitelist": [
+      "NEWS_API_KEY"
+    ]
   }
 }
